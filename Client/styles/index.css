@@ -1,0 +1,96 @@
+h1,h2{
+    text-align: center;
+}
+
+h1{
+    font-size: 40px;
+}
+
+body{
+    background-color: rgba(230, 244, 239, 0.394);
+}
+
+h2{
+    font-size: 28px;
+    color: red;
+}
+
+h3 {
+    text-align: center;
+    color: rgb(154, 153, 153);
+}
+
+#mainContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 25px;
+    width: 95%;
+    margin: auto;
+    margin-top: 35px;
+}
+
+.smallCard {
+    box-shadow: rgba(145, 145, 145, 0.35) 0px 5px 15px;
+    background: rgba(8, 106, 198, 0.186);
+    width: 300px;
+    height: 100%;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+.dataContainer {
+    border-top: 1px solid grey;
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.github,
+.deploy {
+    width: 50%;
+}
+
+.github {
+    border-right: 1px solid grey;
+}
+
+.dataContainer .github h3,
+.small1,
+.dataContainer .deploy h3 {
+    border-bottom: 1px solid grey;
+}
+
+.small1 h3,
+.small2 h3 {
+    border-bottom: 2px solid blue;
+}
+
+.head {
+    font-size: 25px;
+    color: rgb(88, 3, 3);
+}
+
+p {
+    font-weight: 600;
+}
+
+i {
+    font-size: 27px;
+    color: rgb(19, 65, 233);
+}
+
+.backend,
+.frontend {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.problemStatement,
+.short,
+.long {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
