@@ -1,0 +1,402 @@
+1. Can Knockdown
+
+// Description
+
+ Recently Akhil decided to improve his pistol shooting skills. Today his coach offered him the following exercise. He placed n cans in a row on a table. Cans are numbered from left to right from 1 to n. Akhil has to knock down each can exactly once to finish the exercise. He is allowed to choose the order in which he will knock the cans down.
+ Akhil knows that the durability of the i-th can is ai.It means that if Akhil has already knocked x cans down and is now about to start shooting the i-th one, he will need (ai⋅x+1) shots to knock it down.
+ You can assume that if Akhil starts shooting the i-th can, he will be shooting it until he knocks it down.
+ Your task is to choose such an order of shooting so that the number of shots required to knock each of the n given cans down exactly once is minimum possible.
+
+
+// Input Format
+
+ The first line contains the number of testcases - t
+ For each testcase:
+ The first line of the input contains one integer n — the number of cans.
+ The second line of the input contains the sequence a1,a2,…,an , where ai is the durability of the i-th can.
+
+// Constraints
+
+ 1<=t<=10
+ 1<=n<=1000
+ 1<=ai<=1000
+
+// Output
+
+ For each testcase : In the first line print the minimum number of shots required to knock each of the n given cans down exactly once.
+ In the second line print the sequence consisting of n distinct integers from 1 to n — the order of indices of cans that minimizes the number of shots required. If there are several answers, you need the print the lexicographically smallest one
+
+// Sample Input 1 
+ 2
+ 3
+ 20 10 20
+ 4
+ 10 10 10 10
+
+// Sample Output 1
+ 43
+ 1 3 2 
+ 64
+ 1 2 3 4 
+
+
+// Hint
+ In the first example Akhil can start shooting from the first can. He knocks it down with the first shot because he haven't knocked any other cans down before. After that he has to shoot the third can. To knock it down he shoots 20⋅1+1=21 times. After that only second can remains. To knock it down Akhil shoots 10⋅2+1=21 times. So the total number of shots is 1+21+21=43.
+ In the second example the order of shooting does not matter because all cans have the same durability.
+
+// ** Code **
+
+function CanKnockDown(n,arr) {
+    let data = [] , total=0 , bag="";
+    
+    for(let i=0;i<n;i++){
+        data.push([arr[i],i+1]);
+    }
+    
+    let newArr = data.sort((x,y)=>{
+        if(x[0]==y[0]){
+            return x[1]-y[1];
+        }else{
+            return y[0]-x[0];
+        }
+    })
+    
+    for(let i=0;i<newArr.length;i++){
+        (total+=((newArr[i][0]*i)+1) , bag+=newArr[i][1]+" ");
+    }
+    
+    console.log(total);
+    console.log(bag);
+}
+
+// Input Taking Part
+
+function runProgram(input) {
+  input=input.trim().split("\n");
+  let T = +input[0].trim() ,line=1;
+  for(let i=0;i<T;i++){
+      let n = +input[line++];
+      let arr = input[line++].trim().split(" ").map(Number);
+      CanKnockDown(n,arr);
+  }
+}
+
+if (process.env.USER === "") {
+  runProgram(``);
+} else {
+  process.stdin.resume();
+  process.stdin.setEncoding("ascii");
+  let read = "";
+  process.stdin.on("data", function (input) {
+    read += input;
+  });
+  process.stdin.on("end", function () {
+    read = read.replace(/\n$/, "");
+    read = read.replace(/\n$/, "");
+    runProgram(read);
+  });
+  process.on("SIGINT", function () {
+    read = read.replace(/\n$/, "");
+    runProgram(read);
+    process.exit(0);
+  });
+}
+
+
+--------------------------------------->>>>>>>>>>>>><<<<<<<<<<<<<<<<---------------------------------------
+
+2. Jumping on the clouds
+
+// Description
+
+ There is a new mobile game that starts with consecutively numbered clouds. Some of the clouds are thunderheads and others are cumulus. The player can jump on any cumulus cloud having a number that is equal to the number of the current cloud plus 1 or 2. The player must avoid the thunderheads. Determine the minimum number of jumps it will take to jump from the starting postion to the last cloud. It is always possible to win the game.
+ For each game, you will get an array of clouds numbered 0 if they are safe or 1 if they must be avoided.
+
+// Input Format
+
+ The first line of the input contains an integer t - the number of testcases.
+ The next 2*t lines contain the description of the t testcases.
+ The first line of each testcase contains an integer n - the size of the array.
+ The second line of each testcases contain n space-separated binary integers describing clouds c[i] where 0<=i<n.
+
+// Constraints
+
+ 1 <= t <= 100
+ 1 <= n <= 10^5
+ 0 <= c[i] <= 1
+ c[0] = c[n-1] = 0
+
+
+// Output Format
+
+ For each testcase print the minimum number of jumps needed to win the game.
+
+// Sample Input 1 
+ 2
+ 7
+ 0 0 1 0 0 1 0
+ 6
+ 0 0 0 0 1 0
+
+// Sample Output 1
+ 4
+ 3
+
+
+// Hint
+
+// First testcase
+ The player must avoid c[2] and c[5]. The game can be won with a minimum of 4 jumps:
+ https://prod-oj-files.s3.ap-south-1.amazonaws.com/upload/96aaed5e13.png
+
+// Second testcase
+ The only thundercloud to avoid is c[4]. The game can be won in 3 jumps:
+ https://prod-oj-files.s3.ap-south-1.amazonaws.com/upload/76104f6d3e.png
+
+
+
+// ** Code **
+
+function JumpingOnTheClouds(n,arr) {
+    let Jump=0 , val=0;
+    
+    while(val<n){
+        if(arr[val+2]===0){
+           (Jump++ , val=val+2);
+            continue;
+        }else if(arr[val+1]===0){
+           (Jump++ , val++)
+            continue;
+        }
+        break;
+    }
+    console.log(Jump);
+}
+
+// Input Taking Part
+
+function runProgram(input) {
+  input=input.trim().split("\n");
+  let T = +input[0] , line=1;
+  
+  for(let i=0;i<T;i++){
+      let n = +input[line++].trim();
+      let arr = input[line++].trim().split(" ").map(Number);
+      JumpingOnTheClouds(n,arr);
+  }
+}
+if (process.env.USER === "") {
+  runProgram(``);
+} else {
+  process.stdin.resume();
+  process.stdin.setEncoding("ascii");
+  let read = "";
+  process.stdin.on("data", function (input) {
+    read += input;
+  });
+  process.stdin.on("end", function () {
+    read = read.replace(/\n$/, "");
+    read = read.replace(/\n$/, "");
+    runProgram(read);
+  });
+  process.on("SIGINT", function () {
+    read = read.replace(/\n$/, "");
+    runProgram(read);
+    process.exit(0);
+  });
+}
+
+
+--------------------------------------->>>>>>>>>>>>><<<<<<<<<<<<<<<<---------------------------------------
+
+3. Prepend and Append
+
+// Description
+
+Akhil initially had a binary string† s (possibly of length 0). He performed the following operation several (possibly zero) times:
+Add 0 to one end of the string and 1 to the other end of the string.
+For example, starting from the string 1011, you can obtain either 010111 or 110110.
+You are given Akhil's final string. What is the length of the shortest possible string he could have started with?
+† A binary string is a string (possibly the empty string) whose characters are either 0 or 1.
+
+// Input Format
+
+The first line of the input contains an integer t — the number of testcases.
+The first line of each test case contains an integer n — the length of Timur's final string.
+The second line of each test case contains a string s of length n consisting of characters 0 or 1, denoting the final string.
+
+// Constraints
+
+1<=t<=10
+1<=n<=2000
+
+// Output
+
+For each test case, output a single nonnegative integer — the shortest possible length of Timur's original string. Note that Timur's original string could have been empty, in which case you should output 0.
+
+// Sample Input 1
+9
+3
+100
+4
+0111
+5
+10101
+6
+101010
+7
+1010110
+1
+1
+2
+10
+2
+11
+10
+1011011010
+
+
+// Sample Output 1
+1
+2
+5
+0
+3
+1
+0
+2
+4
+
+
+// Hint
+
+In the first test case, the shortest possible string Timur started with is 0, and he performed the following operation: 0→100.
+In the second test case, the shortest possible string Timur started with is 11, and he performed the following operation: 11→0111.
+In the fourth test case, the shortest possible string Timur started with is the empty string (which we denote by ε), and he performed the following operations: ε→10→0101→101010.
+In the fifth test case, the shortest possible string Timur started with is 101, and he performed the following operations: 101→01011→1010110.
+
+<<---You can solve own--->>
+
+
+--------------------------------------->>>>>>>>>>>>><<<<<<<<<<<<<<<<---------------------------------------
+
+4. Longest subarray with sum less than or equal to K- II
+
+// Description
+
+Given an array of size N and a number K
+You have to find the longest subarray whose sum is less than or equal toK.
+Input
+The first line of the input contains`T`, the number of test cases.
+The first line of each test case, contains`N`and`K`, the number of elements in the array and the number K
+The next line contains`N`space-separated integers, denoting elements of the array.
+
+// **Constraints**
+
+1 <=`T`<= 10
+1 <=`N`<= 10^5
+1 <=`K`<= 10000
+1<=`A[i]`<=10000
+
+// Output
+
+For each test case, print the length of the longest subarray with the given condition.
+
+// Sample Input 1 
+
+2
+5 8
+1 2 3 4 5
+5 10
+1 2 3 4 5
+
+// Sample Output 1
+3
+4
+
+<<---You can solve own--->>
+
+--------------------------------------->>>>>>>>>>>>><<<<<<<<<<<<<<<<---------------------------------------
+
+5. Find matching pattern
+
+// Description
+
+ Given a stringstrof lengthnand a patternpatof lengthm, find if there is a substring in the givenstrthat matches the patternpat.
+ If you find such a substring with the same pattern, print "Yes" without quotes.
+ If no such substring exists, print "No" without quotes.
+
+// Input Format
+
+ The first line of input containsTthe number of test cases
+ For each test case the first line contains two space-separated integersnandm
+ The second line of each test case contains the string str
+ The third line of each test case contains a pattern pat
+
+// Constraints
+
+ 1 <= n <= 1000
+ 1 <= m <= n
+
+// Output Format
+
+ Print 'Yes' if the pattern is present
+ Print 'No' if you didn't find any substring with the same pattern
+
+// Sample Input 1 
+
+ 2
+ 10 3
+ abcbababaa
+ bab
+ 5 2
+ abcde
+ bab
+
+// Sample Output 1
+ Yes
+ No
+
+
+// Sample Input 2 
+ 1
+ 7 2
+ absdlab
+ ab
+
+// Sample Output 2
+ Yes
+
+
+// Hint
+
+// Sample Input 1 :
+
+// Test Case 1
+ We found the same pattern bab in the given stringabcbababaa, Hence the output is Yes
+
+// Test Case 2
+ No such pattern is present, hence the output is No
+
+
+// ** Code **
+
+function findMatching(n,m,str,pat){
+    let matchData = true;
+    
+    for(let i=0;i<n;i++){
+        let mainDataContainer = "";
+        for(let j=i;j<n;j++){
+            mainDataContainer+=str[j];
+            if(mainDataContainer == pat){
+                matchData=false;
+                break;
+            }
+        }
+    }
+     if(!matchData){
+         console.log("Yes");
+     }else{
+         console.log("No");
+     }
+}
