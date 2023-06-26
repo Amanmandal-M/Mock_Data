@@ -1,0 +1,175 @@
+1. Getting heated
+
+// Description
+
+ There are 3 people in a room - Ankush, Sachin and Akhil.
+// The room is starting to get heated so they decide to turn the AC on, but all three of them have certain conditions.
+ Ankush wants the temperature to be at least A degrees.
+ Sachin wants the temperature to be at most B degrees.
+ Akhil wants the temperature to be at least C degrees.
+ They will turn the AC on if and only if all 3 of them agree on some temperature.
+
+// Input Format
+
+ The first line contains an integer t - the number of testcases.
+ The next t lines contain the description of the t testcases.
+ The first and the only line of each testcase contains three integers A,B and C.
+
+// Constraints
+
+ 1 <= t <= 10^4
+ 1 <= A,B,C <= 10^9
+
+// Output Format
+
+ For each test case print a single line "AC" if they can agree on some temperature or "No AC" if they can't.
+
+// Sample Input 1 
+ 4
+ 30 35 25
+ 30 35 40
+ 30 35 35
+ 30 25 35
+
+// Sample Output 1
+ AC
+ No AC
+ AC
+ No AC
+
+
+// Hint
+ Test Case 1: Ankush wants the temperature to be ≥30, Sachin wants it to be ≤35, and Akhil wants it to be ≥25. The temperatures 30, 31, 32, 33, 34, 35 all satisfy all their demands. So they can choose any of these 6 temperatures, and so the answer is "AC".
+ Test Case 2: Ankush wants the temperature to be ≥30, Sachin wants it to be ≤35, and Akhil wants it to be ≥40. A number can't be both ≥40, and ≤35. So there is no temperature that satisfies all their demands. So the answer is "No AC".
+ Test Case 3: Ankush wants the temperature to be ≥30, Sachin wants it to be ≤35, and Akhil wants it to be ≥35. The temperature 35 satisfies all their demands. So the answer is "AC".
+ Test Case 4: Ankush wants the temperature to be ≥30, Sachin wants it to be ≤25, and Akhil wants it to be ≥35. A number can't be both ≥30, and ≤25. So there is no temperature that satisfies all their demands. So the answer is "No AC".
+
+
+// ** Code **
+
+function Display(arr) {
+    if(arr[0]<=arr[1] && arr[2]<=arr[1]){
+        console.log("AC")
+    }else{
+        console.log("No AC");
+    }
+}
+
+// Input Taking Part
+
+function runProgram(input) {
+  input = input.trim().split("\n");
+  let T = +input[0] , line=1;
+  for(let i=0;i<T;i++){
+      let arr = input[line++].trim().split(" ").map(Number);
+      Display(arr);
+  }
+}
+
+if (process.env.USER === "") {
+  runProgram(``);
+} else {
+  process.stdin.resume();
+  process.stdin.setEncoding("ascii");
+  let read = "";
+  process.stdin.on("data", function (input) {
+    read += input;
+  });
+  process.stdin.on("end", function () {
+    read = read.replace(/\n$/, "");
+    read = read.replace(/\n$/, "");
+    runProgram(read);
+  });
+  process.on("SIGINT", function () {
+    read = read.replace(/\n$/, "");
+    runProgram(read);
+    process.exit(0);
+  });
+}
+
+
+-------------------------------------->>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<---------------------------------
+
+2. Cyberverse
+
+// Description
+
+// 2022 was approaching and the world was about to end. So the gods created the Cyberverse. But this time disappointed with humans the gods decided not to have humans in this world. So they created a world of cyborgs. A world without humans. Isn’t it interesting? So let us dive into the cyberverse and have a look at their problems.
+// There are N kid cyborgs with the Chief Cyborg and he has K weapons with him. He wants to distribute those K weapons among N kid cyborgs. Since all the kid cyborgs are very good friends, so they set a rule among themselves for taking those weapons.
+// The rule states that the difference between kid cyborg having the maximum weapons and the kid cyborg having minimum weapons should be less than or equal to 1.
+// Find the value of the minimum number of weapons a kid cyborg can have when all the K weapons are distributed among them.
+
+// Input Format
+
+// The first line contains an integer T, denoting the number of test cases.
+// Each of the next T lines will contain two space-separated integers denoting N and K respectively.
+
+// Constraints
+
+// 1<=T<=10
+// 1<=N<=10^5
+// 1<=K<=10^9
+
+// Output
+
+// For each test case ,output a single line containing an integer X denoting the minimum number of weapons a kid cyborg can have in that test case.
+
+// Sample Input 1 
+// 1
+// 5 8
+
+// Sample Output 1
+// 1
+
+
+// Hint
+// There are 5 kids and 8 weapons.
+// Hence we will distribute the weapons such that 3 kids have 2 weapons each and the remaining 2 kids have 1 weapon each.
+// Hence the minimum number of weapons a kid cyborg has is 1. ( That is, min(1,2) = 1 )
+
+
+// ** Code **
+
+function cyberverse(n,k) {
+    if(k%n===0){
+        console.log(k/n);
+    }else{
+        let data = Math.floor(k/n);
+    
+       let leftData = k%n;
+       let lessData = data + Math.min(leftData,0);
+       console.log(lessData);
+    }
+}
+
+// Input Taking Part
+
+function runProgram(input) {
+  input=input.trim().split("\n");
+  let T = +input[0].trim() , line=1;
+  for(let i=0;i<T;i++){
+      let [n,k] = input[line++].trim().split(" ").map(Number);
+      cyberverse(n,k);
+  }
+}
+
+if (process.env.USER === "") {
+  runProgram(``);
+} else {
+  process.stdin.resume();
+  process.stdin.setEncoding("ascii");
+  let read = "";
+  process.stdin.on("data", function (input) {
+    read += input;
+  });
+  process.stdin.on("end", function () {
+    read = read.replace(/\n$/, "");
+    read = read.replace(/\n$/, "");
+    runProgram(read);
+  });
+  process.on("SIGINT", function () {
+    read = read.replace(/\n$/, "");
+    runProgram(read);
+    process.exit(0);
+  });
+}
